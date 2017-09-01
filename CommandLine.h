@@ -105,6 +105,9 @@ private:
 
     /**
      * @brief Defines what argument (command or parameter)
+     * @param tempCmd, structure with data from the command line
+     * @param _cmdArguments, vector of parameters from the command line
+     * @param i, current item
      */
     void identifyArgument(ContainerCmd &tempCmd, std::vector<std::string> &_cmdArguments, int i);
 
@@ -127,6 +130,7 @@ private:
 
     /**
      * @brief Passing the structure of arguments from the config for the function isArgument
+     * @param command, argument name
      */
     void passCommandIsArgument(std::string command);
 
@@ -138,6 +142,7 @@ private:
 
     /**
      * @brief Passing the structure of arguments from the config for getString
+     * @param command, argument name
      */
     void passCommandGetString(std::string command);
 
