@@ -86,7 +86,7 @@ bool CommandLine::isArgument(std::string fullName) {
     return _resultIsArgument;
 }
 
-void CommandLine::passFullNameIsArgument(std::string fullName) {
+void CommandLine::passFullNameIsArgument(std::string &fullName) {
     ContainerConfig tempConfig;
     for (int i = 0; i < _containerConfig.size(); ++i) {
         tempConfig = _containerConfig[i];
@@ -97,7 +97,7 @@ void CommandLine::passFullNameIsArgument(std::string fullName) {
     }
 }
 
-void CommandLine::passCommandIsArgument(std::string command) {
+void CommandLine::passCommandIsArgument(std::string &command) {
     ContainerCmd tempCmd;
     for (int i = 0; i < _containerCmd.size(); ++i) {
         tempCmd = _containerCmd[i];
@@ -138,7 +138,7 @@ std::string CommandLine::getString(std::string fullName) {
     return _resultGetString;
 }
 
-void CommandLine::passTypeGetString(std::string fullName) {
+void CommandLine::passTypeGetString(std::string &fullName) {
     ContainerCmd tempCmd;
     ContainerConfig tempConfig;
     for (int i = 0; i < _containerConfig.size(); ++i) {
@@ -150,7 +150,7 @@ void CommandLine::passTypeGetString(std::string fullName) {
     }
 }
 
-void CommandLine::passCommandGetString(std::string command) {
+void CommandLine::passCommandGetString(std::string &command) {
     ContainerCmd tempCmd;
     for (int i = 0; i < _containerCmd.size(); ++i) {
         tempCmd = _containerCmd[i];
@@ -161,7 +161,7 @@ void CommandLine::passCommandGetString(std::string command) {
     }
 }
 
-std::string CommandLine::list() {
+std::string CommandLine::list() const {
     std::string str;
     for (int i = 0; i < _cmdArguments.size(); ++i) {
         str += _cmdArguments[i] + " ";
