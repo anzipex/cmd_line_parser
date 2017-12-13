@@ -28,14 +28,14 @@ void CommandLine::closeConfig() {
     _file.close();
 }
 
-void CommandLine::checkDataContainerCmd() {
+void CommandLine::checkDataContainerCmd() const {
     if (_containerCmd.empty()) {
         std::cout << "command line is empty, program closed" << std::endl;
         exit(1);
     }
 }
 
-void CommandLine::checkDataContainerConfig() {
+void CommandLine::checkDataContainerConfig() const {
     if (_containerConfig.empty()) {
         std::cout << "config is empty, program closed" << std::endl;
         exit(1);
