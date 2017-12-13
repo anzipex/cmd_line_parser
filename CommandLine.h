@@ -65,19 +65,19 @@ public:
      * @brief Get a list of all parameters from the command line
      * @return string of arguments
      */
-    std::string list();
+    std::string list() const;
 
 private:
 
     /**
      * @brief Checks if there is data in the structure from the command line
      */
-    void checkDataContainerCmd();
+    void checkDataContainerCmd() const;
 
     /**
      * @brief Checks whether there is data in the structure from the config
      */
-    void checkDataContainerConfig();
+    void checkDataContainerConfig() const;
 
     /**
      * @brief Structure with data from the config
@@ -126,25 +126,25 @@ private:
      * @brief Passing the structure of the full-name from the config for the function isArgument
      * @param fullName
      */
-    void passFullNameIsArgument(std::string fullName);
+    void passFullNameIsArgument(std::string &fullName);
 
     /**
      * @brief Passing the structure of arguments from the config for the function isArgument
      * @param command, argument name
      */
-    void passCommandIsArgument(std::string command);
+    void passCommandIsArgument(std::string &command);
 
     /**
      * @brief Passage on the structure of types from the config for getString
      * @param fullName, full-name from config file
      */
-    void passTypeGetString(std::string fullName);
+    void passTypeGetString(std::string &fullName);
 
     /**
      * @brief Passing the structure of arguments from the config for getString
      * @param command, argument name
      */
-    void passCommandGetString(std::string command);
+    void passCommandGetString(std::string &command);
 
     bool _resultIsArgument; //!< the presence of an argument named fullName
     std::string _resultGetString; //!< received string with a type named fullName
