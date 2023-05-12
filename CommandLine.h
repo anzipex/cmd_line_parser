@@ -1,12 +1,4 @@
-/** 
- * @file CommandLine.h
- * @brief CommandLine class reference
- * @author anzipex (anzipex@gmail.com)
- * @date August 4, 2017
- */
-
-#ifndef COMMANDLINE_H
-#define COMMANDLINE_H
+#pragma once
 
 #include <fstream>
 #include <vector>
@@ -26,7 +18,7 @@ public:
     virtual ~CommandLine();
 
     /**
-     * @brief Parsing config
+     * @brief Config parser
      * @param argc, number of parameters
      * @param argv, array of pointers to strings
      * @param pathToConfig, path to config file
@@ -34,7 +26,7 @@ public:
     void parse(int argc, char** argv, const std::string& pathToConfig);
 
     /**
-     * @brief Checks for the presence of a parameter with the full-name in the config file
+     * @brief Checks for the presence of a parameter with the fullname in the config file
      * @param fullName
      * @return the presence of an argument
      */
@@ -106,10 +98,10 @@ private:
     /**
      * @brief Defines what argument (command or parameter)
      * @param tempCmd, structure with data from the command line
-     * @param _cmdArguments, vector of parameters from the command line
+     * @param cmdArguments_, vector of parameters from the command line
      * @param i, current item
      */
-    void identifyArgument(ContainerCmd &tempCmd, std::vector<std::string> &_cmdArguments, int i);
+    void identifyArgument(ContainerCmd &tempCmd, std::vector<std::string> &cmdArguments_, int i);
 
     /**
      * @brief Opens the config
@@ -146,10 +138,8 @@ private:
      */
     void passCommandGetString(std::string &command);
 
-    bool _resultIsArgument; //!< the presence of an argument named fullName
-    std::string _resultGetString; //!< received string with a type named fullName
-    std::ifstream _file; //!< configuration file
-    std::vector<std::string> _cmdArguments; //!< vector of parameters from the command line
+    bool resultIsArgument_; //!< the presence of an argument named fullName
+    std::string resultGetString_; //!< received string with a type named fullName
+    std::ifstream file_; //!< configuration file
+    std::vector<std::string> cmdArguments_; //!< vector of parameters from the command line
 };
-
-#endif /* COMMANDLINE_H */

@@ -1,20 +1,13 @@
-/** 
- * @file CommandLine.cpp
- * @brief Implementing the CommandLine class
- * @author anzipex (anzipex@gmail.com)
- * @date August 4, 2017
- */
-
 #include <iostream>
 #include "CommandLine.h"
 
 CommandLine::CommandLine(int argc, char** argv) :
-_resultIsArgument(false),
-_resultGetString(),
-_file(nullptr),
-_cmdArguments() {
+resultIsArgument_(false),
+resultGetString_(),
+file_(nullptr),
+cmdArguments_() {
     for (int i = 1; i < argc; ++i) {
-        _cmdArguments.push_back(argv[i]);
+        cmdArguments_.push_back(argv[i]);
     }
     parseCmdLine();
     checkDataContainerCmd();
@@ -25,7 +18,7 @@ CommandLine::~CommandLine() {
 }
 
 void CommandLine::closeConfig() {
-    _file.close();
+    file_.close();
 }
 
 void CommandLine::checkDataContainerCmd() const {
@@ -43,15 +36,15 @@ void CommandLine::checkDataContainerConfig() const {
 }
 
 void CommandLine::openConfig(const std::string& pathToConfig) {
-    _file.open(pathToConfig);
-    if (!_file.good()) {
+    file_.open(pathToConfig);
+    if (!file_.good()) {
         std::cerr << "unable to open config, or file not found" << std::endl;
     }
 }
 
 void CommandLine::identifyArgument(ContainerCmd &tempCmd,
-                                   std::vector<std::string> &_cmdArguments, int i) {
-    std::string str = _cmdArguments[i];
+                                   std::vector<std::string> &cmdArguments_, int i) {
+    std::string str = cmdArguments_[i];
     if (str[0] == '-') {
         if (i > 0) {
             _containerCmd.push_back(tempCmd);
@@ -65,8 +58,8 @@ void CommandLine::identifyArgument(ContainerCmd &tempCmd,
 
 void CommandLine::parseCmdLine() {
     ContainerCmd tempCmd;
-    for (int i = 0; i < _cmdArguments.size(); ++i) {
-        identifyArgument(tempCmd, _cmdArguments, i);
+    for (int i = 0; i < cmdArguments_.size(); ++i) {
+        identifyArgument(tempCmd, cmdArguments_, i);
     }
     _containerCmd.push_back(tempCmd);
 }
@@ -74,16 +67,16 @@ void CommandLine::parseCmdLine() {
 void CommandLine::parse(int argc, char** argv, const std::string& pathToConfig) {
     openConfig(pathToConfig);
     ContainerConfig configEntry;
-    while (_file >> configEntry.fullName >> configEntry.command >> configEntry.type) {
+    while (file_ >> configEntry.fullName >> configEntry.command >> configEntry.type) {
         _containerConfig.push_back(configEntry);
     }
     checkDataContainerConfig();
 }
 
 bool CommandLine::isArgument(std::string fullName) {
-    _resultIsArgument = false;
+    resultIsArgument_ = false;
     passFullNameIsArgument(fullName);
-    return _resultIsArgument;
+    return resultIsArgument_;
 }
 
 void CommandLine::passFullNameIsArgument(std::string &fullName) {
@@ -102,7 +95,7 @@ void CommandLine::passCommandIsArgument(std::string &command) {
     for (int i = 0; i < _containerCmd.size(); ++i) {
         tempCmd = _containerCmd[i];
         if (tempCmd.command == command) {
-            _resultIsArgument = true;
+            resultIsArgument_ = true;
             break;
         }
     }
@@ -133,9 +126,9 @@ float CommandLine::getFloat(std::string fullName) {
 }
 
 std::string CommandLine::getString(std::string fullName) {
-    _resultGetString = "no such fullName in config file";
+    resultGetString_ = "no such fullName in config file";
     passTypeGetString(fullName);
-    return _resultGetString;
+    return resultGetString_;
 }
 
 void CommandLine::passTypeGetString(std::string &fullName) {
@@ -155,7 +148,7 @@ void CommandLine::passCommandGetString(std::string &command) {
     for (int i = 0; i < _containerCmd.size(); ++i) {
         tempCmd = _containerCmd[i];
         if (tempCmd.command == command) {
-            _resultGetString = tempCmd.type;
+            resultGetString_ = tempCmd.type;
             break;
         }
     }
@@ -163,8 +156,8 @@ void CommandLine::passCommandGetString(std::string &command) {
 
 std::string CommandLine::list() const {
     std::string str;
-    for (int i = 0; i < _cmdArguments.size(); ++i) {
-        str += _cmdArguments[i] + " ";
+    for (int i = 0; i < cmdArguments_.size(); ++i) {
+        str += cmdArguments_[i] + " ";
     }
     return str;
 }
