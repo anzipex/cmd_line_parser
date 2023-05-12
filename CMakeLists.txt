@@ -3,5 +3,5 @@ project(cmd_line_parser)
 
 add_executable(cmd_line_parser
     main.cpp
-    CommandLine.cpp
+    command_line.cpp
 )

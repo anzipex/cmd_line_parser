@@ -1,5 +1,5 @@
 #include <iostream>
-#include "CommandLine.h"
+#include "command_line.h"
 
 CommandLine::CommandLine(int argc, char** argv) :
 resultIsArgument_(false),
